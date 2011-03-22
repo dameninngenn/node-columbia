@@ -1,19 +1,25 @@
 var sys = require("sys"),
-    ws  = require('websocket-server');
+    ws  = require('websocket-server'),
+    path = require('path');
 
 /**
  * web-server
  */
 var express = require('express');
 var app = express.createServer();
-app.configure(function(){
-  app.use(express.static(__dirname + '/public'));
+
+app.use(express.static(path.join(__dirname,'static')));
+app.set('view engine','ejs');
+app.get('/', function(req, res) {
+    res.render('index', {
+        layout: false
+    });
 });
+
 
 /**
  * websocket-server
  */
-//var json = JSON.stringify;
 var server = ws.createServer({server: app});
 var points = [];
 
@@ -24,7 +30,6 @@ server.addListener("listening", function(){
 server.addListener("connection", function(conn){
 
   sys.log('Hello');
-  //server.broadcast("@HELLO");
 
   // send all points
   if (points.length > 0) {

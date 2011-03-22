@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"> 
+  <title>Canvas Share Demo</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+</head>
+<body>
+
+  <canvas id="layer0" class="canvas" style="position: absolute; top: 0; left: 0; border: 10px solid #dddddd;" width="300px" height="300px"></canvas>
+  <input type="button" id="clear" value="Clear" style="position:absolute;" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/client.js?t=1149"></script>
+<script type="text/javascript">
+$(function(){
+
+  var painter = new Painter('layer0');
+  if (window["WebSocket"]) {
+    var conn = new WebSocket("ws://www13305u.sakura.ne.jp:443/");
+    painter.setConnection(conn);
+  } else {
+    alert('This browser is not supported.');
+  }
+  
+  $('#clear').click(function() {
+    painter.clear();
+  });
+  
+});
+</script>
+</body>
+</html>
