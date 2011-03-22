@@ -2,8 +2,12 @@
 
  var Painter = function(id) {
    this.id = id;
+   this.body = document.querySelector("body");
    this.canvas = document.getElementById(id);
    this.context = this.canvas.getContext('2d');
+
+   // hide the toolbar in iOS
+   setTimeout(function() { window.scrollTo(0, 1); }, 100);
 
    this.init();
    this.setEvents();
@@ -44,12 +48,41 @@
      self.up(event)
    }, false);
 
+   //iPhone
+   // prevents dragging the page in iOS
+   this.body.ontouchmove = function(e) {
+       e.preventDefault();
+   };
+
+   this.canvas.addEventListener('touchstart', function(event) {
+     self.touchdown(event)
+   }, false);
+
+   this.canvas.addEventListener('touchend', function(event) {
+     self.up(event);
+   }, false);
+
+   this.canvas.addEventListener('touchmove', function(event) {
+     self.touchmoving(event);
+   }, false);
+
+   this.canvas.addEventListener('touchcancel', function(event) {
+     self.up(event)
+   }, false);
+
  };
 
  Painter.prototype.down = function(event) {
    this.isDrawing = true;
    this.beforeX = event.clientX - 10;
    this.beforeY = event.clientY - 10;
+ };
+
+ Painter.prototype.touchdown = function(event) {
+   var touch = event.touches[0];
+   this.isDrawing = true;
+   this.beforeX = touch.screenX - 10;
+   this.beforeY = touch.screenY - 10;
  };
 
  Painter.prototype.up = function(event) {
@@ -82,6 +115,31 @@
      by: this.beforeY,
      ax: event.clientX - 10,
      ay: event.clientY - 10,
+     c: this.strokeStyle
+   };
+
+   if (this.conn) {
+     this.conn.send(JSON.stringify(points));
+   } else {
+     this.drawLine(points);
+   }
+
+   this.beforeX = points.ax;
+   this.beforeY = points.ay;
+ };
+
+ Painter.prototype.touchmoving = function(event) {
+   if (!this.isDrawing) {
+     return;
+   }
+
+   var touch = event.touches[0];
+
+   var points = {
+     bx: this.beforeX,
+     by: this.beforeY,
+     ax: touch.screenX - 10,
+     ay: touch.screenY - 10,
      c: this.strokeStyle
    };
 
