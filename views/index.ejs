@@ -11,23 +11,6 @@
   <input type="button" id="clear" value="Clear" style="position:absolute;" />
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="/js/client.js?t=1149"></script>
-<script type="text/javascript">
-$(function(){
-
-  var painter = new Painter('layer0');
-  if (window["WebSocket"]) {
-    var conn = new WebSocket("ws://www13305u.sakura.ne.jp:443/");
-    painter.setConnection(conn);
-  } else {
-    alert('This browser is not supported.');
-  }
-  
-  $('#clear').click(function() {
-    painter.clear();
-  });
-  
-});
-</script>
+<script type="text/javascript" src="/js/client.js"></script>
 </body>
 </html>

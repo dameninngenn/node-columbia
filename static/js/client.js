@@ -1,3 +1,18 @@
+$(function(){
+  var painter = new Painter('layer0');
+  if (window["WebSocket"]) {
+    var conn = new WebSocket("ws://www13305u.sakura.ne.jp:443/");
+    painter.setConnection(conn);
+  } else {
+    alert('This browser is not supported.');
+  }
+
+  $('#clear').click(function() {
+    painter.clear();
+  });
+});
+
+
 (function(){
 
  var Painter = function(id) {
