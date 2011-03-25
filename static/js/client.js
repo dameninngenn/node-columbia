@@ -169,6 +169,10 @@
    var self = this;
    var layer = '@' + this.id;
 
+   this.conn.onclose = function(){
+       alert('Connection closed.Please reload your browser!');
+   };
+
    this.conn.onmessage = function(event) {
      if (event.data.indexOf(layer) > -1) {
        if (event.data.indexOf('@CLEAR') > -1) {
