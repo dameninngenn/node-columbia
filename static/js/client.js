@@ -130,7 +130,8 @@ $(function(){
      by: this.beforeY,
      ax: event.clientX - 10,
      ay: event.clientY - 10,
-     c: this.strokeStyle
+     c: this.strokeStyle,
+     page: '@PAGE'
    };
 
    if (this.conn) {
@@ -155,7 +156,8 @@ $(function(){
      by: this.beforeY,
      ax: touch.screenX - 10,
      ay: touch.screenY - 10,
-     c: this.strokeStyle
+     c: this.strokeStyle,
+     page: '@PAGE'
    };
 
    if (this.conn) {
@@ -170,7 +172,7 @@ $(function(){
 
  Painter.prototype.clear = function(conn) {
    if (this.conn) {
-     this.conn.send('@CLEAR');
+     this.conn.send('@PAGE @CLEAR');
    } else {
      this.clearCanvas();
    }
@@ -184,11 +186,13 @@ $(function(){
 
    var self = this;
    this.conn.onmessage = function(event) {
-     if (event.data.indexOf('@CLEAR') > -1) {
-       self.clearCanvas();
-     } else {
-       var d = JSON.parse(event.data);
-       self.drawLine(d);
+     if (event.data.indexOf('@PAGE') > -1) {
+       if (event.data.indexOf('@CLEAR') > -1) {
+         self.clearCanvas();
+       } else {
+         var d = JSON.parse(event.data);
+         self.drawLine(d);
+       }
      }
    };
 
