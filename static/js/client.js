@@ -116,7 +116,7 @@
      ax: event.clientX - 10,
      ay: event.clientY - 10,
      c: this.strokeStyle,
-     page: '@PAGE'
+     layer: '@' + this.id
    };
 
    if (this.conn) {
@@ -142,7 +142,7 @@
      ax: touch.screenX - 10,
      ay: touch.screenY - 10,
      c: this.strokeStyle,
-     page: '@PAGE'
+     layer: '@' + this.id
    };
 
    if (this.conn) {
@@ -157,7 +157,7 @@
 
  Painter.prototype.clear = function(conn) {
    if (this.conn) {
-     this.conn.send('@PAGE @CLEAR');
+     this.conn.send('@CLEAR @' + this.id);
    } else {
      this.clearCanvas();
    }
@@ -166,12 +166,11 @@
  Painter.prototype.setConnection = function(conn) {
    this.conn = conn;
 
-   this.conn.onclose = function() {console.log('Close');};
-   this.conn.onopen = function(){console.log('Connected');};
-
    var self = this;
+   var layer = '@' + this.id;
+
    this.conn.onmessage = function(event) {
-     if (event.data.indexOf('@PAGE') > -1) {
+     if (event.data.indexOf(layer) > -1) {
        if (event.data.indexOf('@CLEAR') > -1) {
          self.clearCanvas();
        } else {

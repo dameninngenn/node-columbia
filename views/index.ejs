@@ -7,14 +7,14 @@
 </head>
 <body>
 
-  <canvas id="layer0" class="canvas" style="position: absolute; top: 0; left: 0; border: 10px solid #dddddd;" width="300px" height="300px"></canvas>
+  <canvas id="layer_<%= id %>" class="canvas" style="position: absolute; top: 0; left: 0; border: 10px solid #dddddd;" width="300px" height="300px"></canvas>
   <input type="button" id="clear" value="Clear" style="position:absolute;" />
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/js/client.js"></script>
 <script type="text/javascript">
 $(function(){
-  var painter = new Painter('layer0');
+  var painter = new Painter('layer_<%= id %>');
   if (window["WebSocket"]) {
     var conn = new WebSocket("ws://www13305u.sakura.ne.jp:443/");
     painter.setConnection(conn);
