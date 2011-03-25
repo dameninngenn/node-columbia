@@ -184,10 +184,8 @@ $(function(){
 
    var self = this;
    this.conn.onmessage = function(event) {
-     if (event.data.indexOf('@') > -1) {
-       if (event.data.indexOf('@CLEAR') > -1) {
-         self.clearCanvas();
-       }
+     if (event.data.indexOf('@CLEAR') > -1) {
+       self.clearCanvas();
      } else {
        var d = JSON.parse(event.data);
        self.drawLine(d);

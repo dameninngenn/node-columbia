@@ -39,7 +39,7 @@ server.addListener("connection", function(conn){
   }
 
   conn.addListener("message", function(message){
-      if (message.indexOf('@') > -1) {
+      if (message.indexOf('@CLEAR') > -1) {
         points = [];
         server.broadcast(message);
       } else {
