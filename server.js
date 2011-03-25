@@ -10,10 +10,20 @@ var app = express.createServer();
 
 app.use(express.static(path.join(__dirname,'static')));
 app.set('view engine','ejs');
-app.get('/:id', function(req, res) {
+app.get('/', function(req, res) {
     res.render('index', {
+        layout: false
+    });
+});
+app.get('/user/:id', function(req, res) {
+    res.render('user', {
         layout: false,
         locals: {id: req.params.id}
+    });
+});
+app.get('/admin', function(req, res) {
+    res.render('admin', {
+        layout: false
     });
 });
 
