@@ -5,6 +5,11 @@ var sys = require("sys"),
 /**
  * web-server
  */
+var conf = {
+    fqdn: 'node-columbia.dameninngenn.com',
+    port: 443
+};
+
 var express = require('express');
 var app = express.createServer();
 
@@ -18,12 +23,20 @@ app.get('/', function(req, res) {
 app.get('/user/:id', function(req, res) {
     res.render('user', {
         layout: false,
-        locals: {id: req.params.id}
+        locals: {
+            id: req.params.id,
+            fqdn: conf.fqdn,
+            port: conf.port
+        }
     });
 });
 app.get('/admin', function(req, res) {
     res.render('admin', {
-        layout: false
+        layout: false,
+        locals: {
+            fqdn: conf.fqdn,
+            port: conf.port
+        }
     });
 });
 
@@ -65,4 +78,4 @@ server.addListener("close", function(conn){
   sys.log('Close...');
 });
 
-server.listen(443);
+server.listen(conf.port);

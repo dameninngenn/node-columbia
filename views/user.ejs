@@ -15,7 +15,7 @@
 $(function(){
   var painter = new Painter('layer_<%= id %>');
   if (window["WebSocket"]) {
-    var conn = new WebSocket("ws://node-columbia.dameninngenn.com:443/");
+    var conn = new WebSocket("ws://<%= fqdn %>:<%= port %>/");
     painter.setConnection(conn);
   } else {
     alert('This browser is not supported.');
