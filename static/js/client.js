@@ -116,7 +116,7 @@
      ax: event.clientX - 10,
      ay: event.clientY - 10,
      c: this.strokeStyle,
-     layer: '@' + this.id
+     layer: '@DRAW @' + this.id
    };
 
    if (this.conn) {
@@ -142,7 +142,7 @@
      ax: touch.screenX - 10,
      ay: touch.screenY - 10,
      c: this.strokeStyle,
-     layer: '@' + this.id
+     layer: '@DRAW @' + this.id
    };
 
    if (this.conn) {
@@ -177,9 +177,10 @@
      if (event.data.indexOf(layer) > -1) {
        if (event.data.indexOf('@CLEAR') > -1) {
          self.clearCanvas();
-       } else {
+       } else if(event.data.indexOf('@DRAW') > -1) {
          var d = JSON.parse(event.data);
          self.drawLine(d);
+       } else {
        }
      }
    };

@@ -83,11 +83,10 @@ server.addListener("connection", function(conn){
   conn.addListener("message", function(message){
       if (message.indexOf('@CLEAR') > -1) {
         points = [];
-        server.broadcast(message);
-      } else {
+      } else if(message.indexOf('@DRAW') > -1) {
         points.push(message);
-        server.broadcast(message);
       }
+      server.broadcast(message);
   });
 
 });
