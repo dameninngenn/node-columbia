@@ -169,8 +169,21 @@
    var self = this;
    var layer = '@' + this.id;
 
+   this.conn.onopen = function() {
+       var join = {
+           user: layer,
+           identify: '@JOIN'
+       };
+       self.conn.send(JSON.stringify(join));
+   };
+
    this.conn.onclose = function(){
        alert('Connection closed.Please reload your browser!');
+       var part = {
+           user: layer,
+           identify: '@PART'
+       };
+       self.conn.send(JSON.stringify(part));
    };
 
    this.conn.onmessage = function(event) {
