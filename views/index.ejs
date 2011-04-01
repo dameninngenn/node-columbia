@@ -30,6 +30,16 @@
 　　　　　＼＿二二二二二二二二二二二二二二二二ノ <br />
   </font>
 </div>
+<div id="postform">
+<p>Enter your ID.</p>
+<form name="UserForm" method="POST" action="/">
+    http://<%= fqdn %>/<input type="text" name="user" size="20" maxlength="20">
+    <input type="submit" value="Go!">
+</form>
+<% if(error) { %>
+<p><font color="red">※半角英数字でおｋ</font></p>
+<% } %>
+</div>
 </body>
 </html>
 

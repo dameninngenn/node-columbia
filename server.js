@@ -13,12 +13,30 @@ var conf = {
 var express = require('express');
 var app = express.createServer();
 
+app.use(express.bodyParser());
 app.use(express.static(path.join(__dirname,'static')));
 app.set('view engine','ejs');
 app.get('/', function(req, res) {
     res.render('index', {
-        layout: false
+        layout: false,
+        locals: {
+            fqdn: conf.fqdn,
+            error: false
+        }
     });
+});
+app.post('/', function(req, res) {
+    if(CheckStr(req.body.user)) {
+        res.redirect('/user/' + req.body.user);
+    } else {
+        res.render('index', {
+            layout: false,
+            locals: {
+                fqdn: conf.fqdn,
+                error: true
+            }
+        });
+    }
 });
 app.get('/user/:id', function(req, res) {
     res.render('user', {
@@ -79,3 +97,12 @@ server.addListener("close", function(conn){
 });
 
 server.listen(conf.port);
+
+
+function CheckStr(TargetStr) {
+    var str = TargetStr;
+    if(str.match(/[^a-zA-Z0-9]+/)) {
+        return false;
+    }
+    return true;
+}
