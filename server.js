@@ -100,8 +100,8 @@ server.listen(conf.port);
 
 function CheckStr(TargetStr) {
     var str = TargetStr;
-    if(str.match(/[^a-zA-Z0-9]+/)) {
-        return false;
+    if(str.match(/[a-zA-Z0-9]+/)) {
+        return true;
     }
-    return true;
+    return false;
 }
