@@ -21,6 +21,7 @@ app.get('/', function(req, res) {
         layout: false,
         locals: {
             fqdn: conf.fqdn,
+            port: conf.port,
             error: false
         }
     });
@@ -33,6 +34,7 @@ app.post('/', function(req, res) {
             layout: false,
             locals: {
                 fqdn: conf.fqdn,
+                port: conf.port,
                 error: true
             }
         });
@@ -85,14 +87,15 @@ server.addListener("connection", function(conn){
         points = [];
       } else if(message.indexOf('@DRAW') > -1) {
         points.push(message);
+      } else if(message.indexOf('@JOIN') > -1) {
+        sys.log(message);
       }
       server.broadcast(message);
   });
+  conn.addListener("close", function(message){
+    sys.log('Close...');
+  });
 
-});
-
-server.addListener("close", function(conn){
-  sys.log('Close...');
 });
 
 server.listen(conf.port);

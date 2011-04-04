@@ -40,6 +40,19 @@
 <p><font color="red">※半角英数字でおｋ</font></p>
 <% } %>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+<script type="text/javascript">
+$(function(){
+  var socket = new Socket('index');
+  if (window["WebSocket"]) {
+    var conn = new WebSocket("ws://<%= fqdn %>:<%= port %>/");
+    socket.setConnection(conn);
+  } else {
+    alert('This browser is not supported.');
+  }
+});
+</script>
 </body>
 </html>
 
