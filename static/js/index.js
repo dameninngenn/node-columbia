@@ -18,7 +18,8 @@
 
    this.conn.onmessage = function(event) {
      if (event.data.indexOf('@JOIN') > -1) {
-         alert('join');
+         var d = JSON.parse(event.data);
+         alert(d.user.substr(7));
      }
    };
 

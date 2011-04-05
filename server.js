@@ -66,6 +66,7 @@ app.get('/admin', function(req, res) {
  */
 var server = ws.createServer({server: app});
 var points = [];
+var join = [];
 
 server.addListener("listening", function(){
   sys.log("Listening for connections.");
@@ -82,12 +83,20 @@ server.addListener("connection", function(conn){
     } 
   }
 
+  // join users
+  if (join.length > 0) {
+    for(var i in join) {
+      conn.send(join[i]);
+    }
+  }
+
   conn.addListener("message", function(message){
       if (message.indexOf('@CLEAR') > -1) {
         points = [];
       } else if(message.indexOf('@DRAW') > -1) {
         points.push(message);
       } else if(message.indexOf('@JOIN') > -1) {
+        join.push(message);
         sys.log(message);
       }
       server.broadcast(message);
