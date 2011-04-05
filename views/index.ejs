@@ -31,15 +31,18 @@
   </font>
 </div>
 <div id="postform">
-<p>Enter your ID.</p>
 <form name="UserForm" method="POST" action="/">
-    http://<%= fqdn %>/<input type="text" name="user" size="20" maxlength="20">
+    <p>Enter your ID.<br />
+    http://<%= fqdn %>/user/<input type="text" name="user" size="20" maxlength="20">
     <input type="submit" value="Go!">
+    </p>
 </form>
 <% if(error) { %>
 <p><font color="red">※半角英数字でおｋ</font></p>
 <% } %>
 </div>
+<div id="recent"><p>最近作られたcanvas</p></div>
+<div id="user"></div>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/js/index.js"></script>
 <script type="text/javascript">
