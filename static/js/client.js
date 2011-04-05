@@ -163,6 +163,11 @@
    }
  };
 
+ Painter.prototype.getImg = function(conn) {
+     var my_img = this.canvas.toDataURL();
+     location.href = my_img;
+ };
+
  Painter.prototype.setConnection = function(conn) {
    this.conn = conn;
 
